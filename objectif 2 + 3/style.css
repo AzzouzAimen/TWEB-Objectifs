@@ -1,0 +1,85 @@
+/* Objectif 2*/
+tr:first-child {
+  background-color: #d3d3d3;
+  font-weight: bold;
+}
+
+th:first-child {
+  background-color: #d3d3d3;
+}
+
+table,
+th,
+td {
+  border: 1px dotted black;
+  border-collapse: collapse;
+}
+
+tr:nth-child(2n) {
+  background-color: #f2f2f2;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: bold;
+  font-style: italic;
+  font-family: fantasy;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Objectif 3*/
+.mainNavBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #2a0e45ff;
+  z-index: 1000;
+}
+
+.mainNavBar > ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none; /* remove dots */
+  margin: 0;
+  padding: 0;
+}
+
+.mainNavBar a {
+  display: block; /* entire area clickable */
+  padding: 15px 25px;
+  color: white;
+  text-decoration: none; /*remov undrline */
+}
+
+/* dropdown */
+
+.mainNavBar .mainNavList li {
+  position: relative;
+}
+
+.mainNavBar .mainNavList ul {
+  display: none; /*hide menu*/
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #440c74ff;
+  min-width: 200px;
+  list-style: none; /* removes dots */
+  padding: 0;
+}
+
+.mainNavBar .mainNavList li:hover > ul {
+  display: block;
+}
+
+body {
+  padding-top: 50px; /*push page down*/
+}
