@@ -1,0 +1,191 @@
+/* --- Minimalist Admin Styles --- */
+
+/* General Body & Container */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #212529;
+  margin: 0;
+}
+
+.admin-container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #dee2e6; /* Sharp border */
+  border-radius: 0; /* No rounded corners */
+}
+
+/* Header */
+.admin-header {
+  background: #343a40; /* Dark gray */
+  color: #fff;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-header h1 {
+  margin: 0;
+  font-size: 22px;
+}
+.logout-btn {
+  background-color: #6c757d; /* Muted gray */
+  color: white;
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: 0;
+  font-size: 14px;
+}
+
+/* Messages */
+.success-message,
+.error-message {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid;
+  border-radius: 0;
+}
+.success-message {
+  background-color: #e9f7ef;
+  color: #1d643b;
+  border-color: #d0e9dd;
+}
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* Main Management Table */
+.management-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.management-table th,
+.management-table td {
+  border: 1px solid #dee2e6;
+  padding: 10px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+.management-table th {
+  background-color: #f8f9fa; /* Very light gray */
+  font-weight: 600;
+}
+
+/* Action Links inside the table */
+.action-link {
+  text-decoration: none;
+  color: #007bff;
+  font-size: 14px;
+  margin-right: 15px;
+}
+.action-link.delete-link {
+  color: #dc3545; /* Red for delete */
+}
+.action-link:hover {
+  text-decoration: underline;
+}
+
+/* Main "Ajouter" Button */
+#showAddForm {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  border-radius: 0;
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+/* In-page Form Containers (replaces modals) */
+.form-container {
+  background: #f8f9fa; /* Light gray background */
+  border: 1px solid #dee2e6;
+  padding: 25px;
+  margin-top: 20px;
+  /* NO position:fixed, NO z-index. It's just a normal div. */
+}
+
+.form-container h2 {
+  margin-top: 0;
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* --- You can also remove these two rules if they exist --- */
+.form-container.hidden {
+  /* This is now controlled by jQuery's display:none, so the class is not needed */
+}
+.form-container form {
+  /* These styles are no longer necessary */
+}
+.form-group {
+  margin-bottom: 15px;
+}
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group input[type="email"],
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ced4da;
+  border-radius: 0;
+  box-sizing: border-box;
+}
+
+/* Member fields in the Add form */
+#members-container .member-field-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+#members-container .member-field-group input {
+  flex: 1;
+  min-width: 180px;
+}
+.remove-member-field {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 0;
+}
+
+/* Generic Buttons for Forms */
+.btn {
+  padding: 10px 15px;
+  border-radius: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+}
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+.btn-add {
+  background-color: #28a745;
+  color: white;
+}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1>Bienvenue</h1>
+      <div class="diapo-div">
+        <div class="diapo">
+          <img src="image1.png" />
+          <div class="separator"></div>
+          <img src="image2.png" />
+          <div class="separator"></div>
+          <img src="image3.png" />
+          <div class="separator"></div>
+          <img src="image4.png" />
+          <div class="separator"></div>
+          <img src="image1.png" />
+          <!-- duplicate first image for infinite loop -->
+        </div>
+      </div>
+    </header>
+    <nav class="mainNavBar">
+      <ul class="mainNavList">
+        <li><a href="#">Home</a></li>
+        <li>
+          <a href="#">Teams</a>
+          <ul>
+            <li><a href="#">Team 1</a></li>
+            <li><a href="#">Team 2</a></li>
+            <li><a href="#">Team 3</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Publications</a>
+          <ul>
+            <li><a href="#">Journals</a></li>
+            <li><a href="#">Conferences</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Partners</a>
+          <ul>
+            <li><a href="#">National</a></li>
+            <li><a href="#">International</a></li>
+            <li><a href="#">Industry</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+
+    <form id="addRowForm">
+      <input type="text" id="team" placeholder="Team" required />
+      <input type="text" id="member" placeholder="Member" required />
+      <input type="text" id="status" placeholder="Statut" required />
+      <button type="submit">Ajouter</button>
+    </form>
+
+    <!-- Search and Sort Controls -->
+    <div class="table-controls">
+      <div class="search-controls">
+        <h3>Search Filters:</h3>
+        <div class="search-group">
+          <label for="searchTeam">Team:</label>
+          <input type="text" id="searchTeam" placeholder="Search by team..." />
+        </div>
+        <div class="search-group">
+          <label for="searchMember">Member:</label>
+          <input
+            type="text"
+            id="searchMember"
+            placeholder="Search by member..."
+          />
+        </div>
+        <div class="search-group">
+          <label for="searchStatus">Status:</label>
+          <input
+            type="text"
+            id="searchStatus"
+            placeholder="Search by status..."
+          />
+        </div>
+        <button id="searchButton">Search</button>
+      </div>
+
+      <div class="sort-controls">
+        <h3>Sort By:</h3>
+        <div class="sort-group">
+          <label for="sortColumn">Column:</label>
+          <select id="sortColumn">
+            <option value="team">Team</option>
+            <option value="member">Member</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+        <div class="sort-group">
+          <label for="sortOrder">Order:</label>
+          <select id="sortOrder">
+            <option value="asc">Ascending (A-Z)</option>
+            <option value="desc">Descending (Z-A)</option>
+          </select>
+        </div>
+        <button id="sortButton">Sort</button>
+        <button id="resetButton">Reset Table</button>
+      </div>
+    </div>
+
+    <table id="teamsTable" border="1">
+      <thead>
+        <tr>
+          <th scope="col">Teams</th>
+          <th scope="col">Members</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row" rowspan="5">Team 1</th>
+          <td>Member 1</td>
+          <td>Professor</td>
+        </tr>
+        <tr>
+          <td>Member 2</td>
+          <td>MCA</td>
+        </tr>
+        <tr>
+          <td>Member 3</td>
+          <td>MCB</td>
+        </tr>
+        <tr>
+          <td>Member 4</td>
+          <td>PhD</td>
+        </tr>
+        <tr>
+          <td>Member 5</td>
+          <td>PhD</td>
+        </tr>
+        <tr>
+          <th scope="row" rowspan="5">Team 2</th>
+          <td>Member 1</td>
+          <td>MCA</td>
+        </tr>
+        <tr>
+          <td>Member 2</td>
+          <td>Professor</td>
+        </tr>
+        <tr>
+          <td>Member 3</td>
+          <td>MCB</td>
+        </tr>
+        <tr>
+          <td>Member 4</td>
+          <td>MCB</td>
+        </tr>
+        <tr>
+          <td>Member 5</td>
+          <td>PhD</td>
+        </tr>
+        <tr>
+          <th scope="row" rowspan="4">Team 3</th>
+          <td>Member 1</td>
+          <td>Professor</td>
+        </tr>
+        <tr>
+          <td>Member 2</td>
+          <td>MCA</td>
+        </tr>
+        <tr>
+          <td>Member 3</td>
+          <td>MCB</td>
+        </tr>
+        <tr>
+          <td>Member 4</td>
+          <td>PhD</td>
+        </tr>
+      </tbody>
+    </table>
+    <video src="apsec.mp4" controls style="height: 500px"></video>
+    <footer>
+      <p>
+        Contactez-nous :
+        <a href="aimen.azzouz@gmail.com">Laboratoire@esi.com</a>
+      </p>
+    </footer>
+    <script src="jquery-3.6.0.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

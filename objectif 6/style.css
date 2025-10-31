@@ -1,0 +1,243 @@
+/* Objectif 2*/
+thead > tr:first-child {
+  background-color: #d3d3d3;
+  font-weight: bold;
+}
+
+th:first-child {
+  background-color: #d3d3d3;
+}
+
+table,
+th,
+td {
+  border: 1px dotted black;
+  border-collapse: collapse;
+}
+
+tr:nth-child(2n) {
+  background-color: #f2f2f2;
+}
+
+th,
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+h1 {
+  font-size: 50px;
+  font-weight: bold;
+  font-style: italic;
+  font-family: fantasy;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Objectif 3*/
+.mainNavBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #2a0e45ff;
+  z-index: 1000;
+}
+
+.mainNavBar > ul {
+  display: flex;
+  justify-content: center;
+  list-style-type: none; /* remove dots */
+  margin: 0;
+  padding: 0;
+}
+
+.mainNavBar a {
+  display: block; /* entire area clickable */
+  padding: 15px 25px;
+  color: white;
+  text-decoration: none; /*remov undrline */
+}
+
+/* dropdown */
+
+.mainNavBar .mainNavList li {
+  position: relative;
+}
+
+.mainNavBar .mainNavList ul {
+  display: none; /*hide menu*/
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #440c74ff;
+  min-width: 200px;
+  list-style: none; /* removes dots */
+  padding: 0;
+}
+
+.mainNavBar .mainNavList li:hover > ul {
+  display: block;
+}
+
+body {
+  padding-top: 50px; /*push page down*/
+}
+
+/* Objectif 4*/
+.diapo-div {
+  width: 90%;
+  margin: 0 5%; /* 0 top/bottom auto left/right */
+  overflow: hidden; /* cache la partie qui depasse */
+  background-color: black; /* espace entre les image */
+}
+
+.diapo {
+  display: flex;
+  width: 100%;
+  animation: scroll 20s ease-in-out infinite;
+}
+
+.diapo:hover {
+  animation-play-state: paused;
+}
+
+.diapo img {
+  width: 100%;
+  height: auto; /* keep ratio */
+}
+
+.separator {
+  width: 2%;
+  background: black;
+  height: 400px;
+  flex-shrink: 0; /* stop separator from shrinking */
+}
+
+/* animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  12% {
+    transform: translateX(0); /* pause on image 1 */
+  }
+  /* ********* */
+  20% {
+    transform: translateX(-102%);
+  }
+  32% {
+    transform: translateX(-102%);
+  }
+  /* ********* */
+  40% {
+    transform: translateX(-204%);
+  }
+  52% {
+    transform: translateX(-204%);
+  }
+  /* ********* */
+  60% {
+    transform: translateX(-306%);
+  }
+  72% {
+    transform: translateX(-306%);
+  }
+  /* ********* */
+  80% {
+    transform: translateX(-408%);
+  }
+  92% {
+    transform: translateX(-408%);
+  }
+  100% {
+    transform: translateX(-408%); /* stay on imag5 */
+  }
+}
+
+/* Objectif 5*/
+
+#addRowForm {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 18px auto;
+  align-items: center;
+}
+
+#addRowForm input {
+  padding: 8px;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+#addRowForm button {
+  padding: 8px 12px;
+  background: #2a0e45;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+}
+#addRowForm button:hover {
+  background: #440c74;
+}
+
+/*  Objectif 6*/
+.table-controls {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin: 18px auto;
+}
+
+.search-controls,
+.sort-controls {
+  flex: 1;
+  min-width: 300px;
+}
+
+.search-controls h3,
+.sort-controls h3 {
+  font-size: 16px;
+  margin: 0 0 10px 0;
+}
+
+.search-group,
+.sort-group {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.search-group label,
+.sort-group label {
+  min-width: 60px;
+  font-size: 14px;
+}
+
+.search-controls input,
+.sort-controls select {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  flex: 1;
+}
+
+.search-controls button,
+.sort-controls button {
+  padding: 8px 12px;
+  background: #2a0e45;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.search-controls button:hover,
+.sort-controls button:hover {
+  background: #440c74;
+}
