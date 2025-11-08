@@ -2,6 +2,7 @@
 session_start();
 require_once '../config/database.php';
 require_once '../includes/auth.php';
+require_once '../includes/helpers.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../login.php");
@@ -16,10 +17,10 @@ if (empty($username) || empty($password)) {
     exit;
 }
 
-$user = checkLogin($username, $password, $mysqli);
+$user = checkLogin($username, $password, $pdo);
 
 if ($user) {
-    // Regenerate session ID for security
+    // Regenerate session ID to prevent session fixation attacks
     session_regenerate_id(true);
     
     // Store user data in session

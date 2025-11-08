@@ -4,7 +4,8 @@ require_once 'config/database.php';
 require_once 'includes/auth.php';
 requireAdmin();
 
-// --- DATA FETCHING (Same as before) ---
+// --- DATA FETCHING ---
+// gets all teams with their members in a single query
 $query = "
     SELECT 
         t.id_team, t.nom AS team_nom, t.description,
@@ -14,9 +15,10 @@ $query = "
     LEFT JOIN users u ON tm.usr_id = u.id_user
     ORDER BY t.nom ASC, u.nom ASC
 ";
-$result = $mysqli->query($query);
-$data_rows = $result->fetch_all(MYSQLI_ASSOC);
+$stmt = $pdo->query($query);
+$data_rows = $stmt->fetchAll();
 $teams_with_members = [];
+// Restructure flat result into nested array: team -> members[]
 foreach ($data_rows as $row) {
     $teams_with_members[$row['id_team']]['id_team'] = $row['id_team'];
     $teams_with_members[$row['id_team']]['team_nom'] = $row['team_nom'];
@@ -59,7 +61,10 @@ foreach ($data_rows as $row) {
             </thead>
             <tbody>
                 <?php foreach ($teams_with_members as $team): ?>
-                    <?php $member_count = isset($team['members']) ? count($team['members']) : 1; ?>
+                    <?php 
+                    // Calculate rowspan for team column (merges cells vertically)
+                    $member_count = isset($team['members']) ? count($team['members']) : 1; 
+                    ?>
                     <tr>
                         <td rowspan="<?php echo $member_count; ?>">
                             <strong><?php echo htmlspecialchars($team['team_nom']); ?></strong>
@@ -70,8 +75,7 @@ foreach ($data_rows as $row) {
                                    data-desc="<?php echo htmlspecialchars($team['description']); ?>">
                                    Modifier
                                 </a>
-                                <a href="actions/delete_team.php?id=<?php echo $team['id_team']; ?>" class="action-link delete-link"
-                                   onclick="return confirm('Attention ! Supprimer cette équipe supprimera aussi tous ses membres. Continuer ?');">
+                                <a href="actions/delete_team.php?id=<?php echo $team['id_team']; ?>" class="action-link delete-link">
                                    Supprimer
                                 </a>
                             </div>
@@ -87,8 +91,7 @@ foreach ($data_rows as $row) {
                                    data-grade="<?php echo htmlspecialchars($team['members'][0]['grade']); ?>">
                                    Modifier
                                 </a>
-                                <a href="actions/delete_member.php?id=<?php echo $team['members'][0]['id_user']; ?>" class="action-link delete-link"
-                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                                <a href="actions/delete_member.php?id=<?php echo $team['members'][0]['id_user']; ?>" class="action-link delete-link">
                                    Supprimer
                                 </a>
                             </td>
@@ -109,8 +112,7 @@ foreach ($data_rows as $row) {
                                    data-grade="<?php echo htmlspecialchars($member['grade']); ?>">
                                    Modifier
                                 </a>
-                                <a href="actions/delete_member.php?id=<?php echo $member['id_user']; ?>" class="action-link delete-link"
-                                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
+                                <a href="actions/delete_member.php?id=<?php echo $member['id_user']; ?>" class="action-link delete-link">
                                    Supprimer
                                 </a>
                             </td>
@@ -195,20 +197,21 @@ foreach ($data_rows as $row) {
     </div>
 
     <script src="assets/js/jquery-3.6.0.js"></script>
-    <script src="assets/js/jquery-3.6.0.js"></script>
+    <script src="assets/js/admin_ajax.js"></script>
     <script>
         $(document).ready(function() {
-            // Get references to ALL form containers
+            // Get references to ALL form containers using jQuery
             const $addTeamForm = $('#addFormContainer');
             const $addMemberForm = $('#addMemberFormContainer');
             const $editTeamForm = $('#editTeamFormContainer');
             const $editMemberForm = $('#editMemberFormContainer');
             const $allForms = $('.form-container');
+            const $membersContainer = $('#members-container');
 
             // --- "AJOUTER UNE ÉQUIPE" FORM ---
             $('#showAddTeamForm').on('click', function() {
                 $allForms.not($addTeamForm).slideUp();
-                $('#members-container').empty();
+                $membersContainer.empty();
                 addMemberField();
                 $addTeamForm.slideToggle();
             });
@@ -221,7 +224,7 @@ foreach ($data_rows as $row) {
 
             // Function to add member fields to the "Add Team" form
             function addMemberField() {
-                const fieldHtml = `
+                const $fieldHtml = $(`
                     <div class="member-field-group">
                         <input type="text" name="prenom[]" placeholder="Prénom" required autocomplete="off">
                         <input type="text" name="nom[]" placeholder="Nom" required autocomplete="off">
@@ -230,32 +233,39 @@ foreach ($data_rows as $row) {
                         <input type="email" name="email[]" placeholder="Email" required autocomplete="off">
                         <input type="text" name="grade[]" placeholder="Grade" required autocomplete="off">
                         <button type="button" class="remove-member-field">X</button>
-                    </div>`;
-                $('#members-container').append(fieldHtml);
+                    </div>`);
+                $membersContainer.append($fieldHtml);
             }
+            
             $('#add-member-field').on('click', addMemberField);
-            $('#members-container').on('click', '.remove-member-field', function() {
+            
+            // Use event delegation for dynamically added remove buttons
+            $membersContainer.on('click', '.remove-member-field', function() {
                 $(this).closest('.member-field-group').remove();
             });
 
             // --- EDIT TEAM FORM ---
-            $('.edit-team-link').on('click', function(e) {
+            // Use event delegation for dynamically added elements
+            $(document).on('click', '.edit-team-link', function(e) {
                 e.preventDefault();
+                const $this = $(this);
                 $allForms.not($editTeamForm).slideUp();
-                $('#edit_team_id').val($(this).data('id'));
-                $('#edit_team_nom').val($(this).data('nom'));
-                $('#edit_team_desc').val($(this).data('desc'));
+                $('#edit_team_id').val($this.data('id'));
+                $('#edit_team_nom').val($this.data('nom'));
+                $('#edit_team_desc').val($this.data('desc'));
                 $editTeamForm.slideDown();
             });
 
             // --- EDIT MEMBER FORM ---
-            $('.edit-member-link').on('click', function(e) {
+            // Use event delegation for dynamically added elements
+            $(document).on('click', '.edit-member-link', function(e) {
                 e.preventDefault();
+                const $this = $(this);
                 $allForms.not($editMemberForm).slideUp();
-                $('#edit_member_id').val($(this).data('id'));
-                $('#edit_member_prenom').val($(this).data('prenom'));
-                $('#edit_member_nom').val($(this).data('nom'));
-                $('#edit_member_grade').val($(this).data('grade'));
+                $('#edit_member_id').val($this.data('id'));
+                $('#edit_member_prenom').val($this.data('prenom'));
+                $('#edit_member_nom').val($this.data('nom'));
+                $('#edit_member_grade').val($this.data('grade'));
                 $editMemberForm.slideDown();
             });
 
@@ -265,5 +275,6 @@ foreach ($data_rows as $row) {
             });
         });
     </script>
+    
 </body>
 </html>

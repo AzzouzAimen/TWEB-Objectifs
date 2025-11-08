@@ -1,8 +1,4 @@
 <?php
-/**
- * Login Page
- * Displays login form for admin access
- */
 
 // Start session - must be called before any output
 session_start();
@@ -44,7 +40,6 @@ if (isLoggedIn()) {
             <div class="form-group">
                 <label for="username">Nom d'utilisateur:</label>
                 <!-- name: field name used in PHP ($_POST['username']) -->
-                <!-- required: HTML5 validation (basic, still validate in PHP) -->
                 <input type="text" id="username" name="username" required autofocus>
             </div>
             
@@ -63,22 +58,3 @@ if (isLoggedIn()) {
 </body>
 </html>
 
-<?php
-/**
- * PHP SYNTAX EXPLANATION:
- * 
- * session_start() - Initializes session (must be before any HTML output)
- * require_once - Include file once (prevents duplicate includes)
- * if (condition) { } - Conditional statement
- * echo - Output text/HTML
- * htmlspecialchars() - Convert special characters to HTML entities (security)
- * $_GET - Superglobal array containing URL parameters
- * isset() - Check if variable exists
- * 
- * HTML FORM ATTRIBUTES:
- * action - URL where form submits to
- * method - POST (secure) or GET (visible in URL)
- * name - Field identifier used in PHP
- * required - HTML5 validation
- */
-?>
